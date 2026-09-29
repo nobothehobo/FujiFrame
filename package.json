@@ -1,0 +1,4 @@
+{
+  "name": "fujiframe", "version": "1.0.0", "private": true, "type": "module",
+  "scripts": { "test": "node --test tests/*.test.js", "start": "python3 -m http.server 5173", "check": "node --check app.js && node --check framing.js && node --check metadata.js && node --check archive.js && node --check png-export.js && node --check sw.js" }
+}

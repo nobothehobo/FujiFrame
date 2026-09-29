@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed"><meta name="description" content="A little breathing room for your photographs. Private, full-resolution photo matting.">
+  <title>FujiFrame — A little breathing room</title>
+  <link rel="icon" href="./logo.svg" type="image/svg+xml"><link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css"><script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="./"><img src="./logo.svg" alt="" width="38" height="38">FujiFrame<span class="brand-dot">.</span></a><span class="privacy"><span></span>On your device. Always.</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">THE FINISHING TOUCH</p><h1>A little breathing room<br>for your photographs.</h1><p>A simple mat. A considered color. Your image, given space.</p></section>
+    <section class="studio" aria-label="Photo framing studio">
+      <div class="workbench">
+        <div class="bench-top"><span class="eyebrow">YOUR DARKROOM, MINUS THE DARK</span><button id="clear" class="text-button" hidden>Clear photos</button></div>
+        <div id="drop" class="drop-zone">
+          <div id="empty"><div class="empty-frame"><svg viewBox="0 0 100 80" aria-hidden="true"><path d="M15 61 38 35 53 50 67 30 85 61"/><circle cx="34" cy="22" r="5"/></svg></div><h2>Make room for your photos.</h2><p>Drop a few favorites here, or pick them from your library.</p><button id="choose" class="primary">Choose photos <span>↗</span></button><p class="small">JPEG, PNG or WebP · Up to 20 photos per batch</p></div>
+          <canvas id="preview" aria-label="Framed photo preview" hidden></canvas>
+        </div>
+        <input id="files" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple hidden>
+        <div id="photo-info" class="photo-info">No uploads. No account. Just your photographs.</div>
+        <div id="filmstrip" class="filmstrip" aria-label="Carousel order"></div>
+        <button id="add" class="text-button" hidden>+ Add photos</button>
+      </div>
+      <aside>
+        <form id="settings">
+          <div class="control-section"><div class="section-number">01</div><h2>The frame</h2>
+            <label for="ratio">Canvas</label><select id="ratio"><option value="original">Follow each photo</option><option value="square" selected>Carousel · square 1:1</option><option value="portrait">Carousel · portrait 4:5</option><option value="landscape">Carousel · landscape 1.91:1</option></select>
+            <p class="hint">Carousel photos share one canvas size. Every image fits completely.</p>
+            <label for="border">Mat width <output id="border-value">6%</output></label><input id="border" type="range" min="0" max="20" value="6">
+            <label class="check"><input id="bottom" type="checkbox"> A little extra room at the bottom</label>
+            <label>Paper color</label><div id="swatches" class="swatches" role="group" aria-label="Paper color">
+              <button type="button" data-color="#ffffff" style="--swatch:#ffffff" aria-label="Gallery white" aria-pressed="true"></button>
+              <button type="button" data-color="#f5f1e8" style="--swatch:#f5f1e8" aria-label="Warm ivory" aria-pressed="false"></button>
+              <button type="button" data-color="#e9e2d5" style="--swatch:#e9e2d5" aria-label="Natural linen" aria-pressed="false"></button>
+              <button type="button" data-color="#d5d9d1" style="--swatch:#d5d9d1" aria-label="Soft sage" aria-pressed="false"></button>
+              <button type="button" data-color="#262824" style="--swatch:#262824" aria-label="Charcoal" aria-pressed="false"></button>
+              <label class="custom-color" title="Custom paper color"><input id="paper" type="color" value="#ffffff" aria-label="Custom paper color"><span>+</span></label>
+            </div><p id="paper-name" class="hint">Gallery white</p>
+          </div>
+          <div class="control-section"><div class="section-number">02</div><h2>Your signature <span class="optional">optional</span></h2>
+            <label for="watermark">Name or credit</label><input id="watermark" type="text" maxlength="120" placeholder="e.g. © Noah Payne" autocomplete="off">
+            <div class="two-col"><div><label for="placement">Placement</label><select id="placement"><option value="mat">On the mat</option><option value="photo">On the photo</option></select></div><div><label for="corner">Corner</label><select id="corner"><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option><option value="top-right">Top right</option><option value="top-left">Top left</option></select></div></div>
+            <div class="two-col"><div><label for="font">Lettering</label><select id="font"><option value="serif">Classic serif</option><option value="sans">Simple sans</option></select></div><div><label for="ink">Ink</label><input id="ink" type="color" value="#55554f"></div></div>
+            <label for="textSize">Size <output id="textSize-value">2%</output></label><input id="textSize" type="range" min="1" max="5" value="2" step="0.25">
+            <label for="opacity">Opacity <output id="opacity-value">70%</output></label><input id="opacity" type="range" min="10" max="100" value="70">
+            <p class="hint">Mat signatures sit below the photo. Add a border to give them room.</p>
+          </div>
+          <div class="control-section"><div class="section-number">03</div><h2>Ready to go</h2>
+            <label for="resolution">Export size</label><select id="resolution"><option value="full">Full resolution · no resizing</option><option value="social">Smaller copy · up to 1080px wide</option></select>
+            <label for="metadata">Photo metadata</label><select id="metadata"><option value="strip">Exclude · private by default</option><option value="keep">Keep supported EXIF / XMP</option></select>
+            <p id="metadata-hint" class="hint">Camera details, dates and GPS are excluded from the export.</p>
+            <p class="hint">Lossless PNG. Full resolution retains the photo’s pixel dimensions; browsers render to sRGB. Originals are never overwritten.</p>
+          </div>
+        </form>
+        <button id="export" class="primary export" disabled>Prepare photos <span>↗</span></button>
+        <p class="hint export-note">Prepare first, then save or share. Large files may take a moment.</p>
+      </aside>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <section id="results" class="results" hidden><div class="results-heading"><div><p class="eyebrow">THE FINAL PRINTS</p><h2>Your photos, framed.</h2></div><button id="share-all" class="secondary" hidden>Share carousel / Save Images</button></div><p class="hint">On iPhone, tap Share, then Save Image(s). If sharing is unavailable, download or open a photo and press and hold to save. ZIP downloads keep your carousel in order.</p><button id="zip" class="secondary">Download carousel ZIP</button><div id="exports" class="export-grid"></div></section>
+    <details class="notes"><summary>A note on resolution & metadata</summary><p>Full-resolution framing adds pixels around your photo and never crops or scales the image itself. PNG avoids another round of JPEG compression. Browser decoding can convert color profiles to sRGB and reduce higher bit depths; this is not a byte-for-byte archival workflow. RAF / RAW and HEIC are not supported: choose the camera JPEG or an exported PNG.</p><p>Keep metadata copies standard EXIF (including camera settings, dates and GPS when present), basic XMP, and PNG text fields. EXIF orientation and image dimensions are updated. XMP is copied verbatim and may still describe the original dimensions. Legacy IPTC, extended XMP and WebP metadata are not copied. Apps such as Instagram may remove metadata later. Exclude omits all source metadata.</p><p>Large photos use band-based PNG encoding to avoid full-size canvas limits, but a full-resolution X-T5 photo can still exceed a phone browser’s memory limit. FujiFrame will report a failed export and let you choose a smaller copy; it never silently downsizes your full-resolution choice. For very large photos, a desktop browser is recommended.</p></details>
+  </main><footer><a class="brand" href="./">FujiFrame.</a><span>Made for the photos you want to keep.</span><span>Independent of Fujifilm.</span></footer>
+</body></html>
