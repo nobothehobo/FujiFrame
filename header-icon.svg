@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FujiFrame camera mark">
+  <rect width="128" height="128" rx="28" fill="#FAF7EF"/>
+  <g shape-rendering="crispEdges">
+    <rect x="22" y="46" width="84" height="50" rx="8" fill="#1C1C1A"/>
+    <rect x="22" y="46" width="84" height="15" rx="8" fill="#D6D0C5"/>
+    <rect x="39" y="36" width="19" height="10" rx="2" fill="#B9B2A8"/>
+    <rect x="70" y="36" width="19" height="10" rx="2" fill="#B9B2A8"/>
+    <rect x="51" y="31" width="26" height="17" rx="3" fill="#C8C1B6"/>
+    <rect x="57" y="28" width="14" height="5" fill="#292927"/>
+    <circle cx="64" cy="72" r="23" fill="#57534D"/>
+    <circle cx="64" cy="72" r="17" fill="#161A19"/>
+    <circle cx="64" cy="72" r="11" fill="#10201C"/>
+    <rect x="57" y="63" width="7" height="7" fill="#F5EAC6"/>
+    <rect x="69" y="75" width="5" height="5" fill="#B9D0C0"/>
+    <rect x="29" y="66" width="10" height="8" rx="2" fill="#9F998F"/>
+    <rect x="89" y="66" width="10" height="8" rx="2" fill="#9F998F"/>
+    <rect x="30" y="90" width="68" height="4" fill="#B9B2A8"/>
+  </g>
+</svg>
