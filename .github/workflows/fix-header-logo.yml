@@ -1,0 +1,40 @@
+name: Fix FujiFrame Quick header logo
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-header-logo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use dedicated small header camera
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('quick.html')
+          s = p.read_text()
+          old_css = '.app-icon{width:48px;height:48px;border-radius:14px;object-fit:cover;box-shadow:0 4px 14px #2a271e16;flex:0 0 auto;background:#faf8f2}'
+          new_css = '.app-icon{width:58px;height:42px;object-fit:contain;flex:0 0 auto;background:transparent;image-rendering:pixelated;image-rendering:crisp-edges}'
+          if old_css not in s:
+              raise SystemExit('Expected app-icon CSS not found')
+          s = s.replace(old_css, new_css, 1)
+          old_img = '<img class="app-icon" src="./app-icon.svg" alt="" aria-hidden="true" />'
+          new_img = '<img class="app-icon" src="./header-camera.svg" alt="" aria-hidden="true" />'
+          if old_img not in s:
+              raise SystemExit('Expected header image tag not found')
+          s = s.replace(old_img, new_img, 1)
+          p.write_text(s)
+          PY
+      - name: Commit header cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quick.html
+          git diff --cached --quiet || git commit -m "Use dedicated clean header camera mark"
+          git push
