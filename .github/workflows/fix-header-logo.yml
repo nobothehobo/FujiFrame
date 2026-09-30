@@ -1,4 +1,4 @@
-name: Restore original FujiFrame branding
+name: Refresh FujiFrame Home Screen icon
 
 on:
   push:
@@ -13,33 +13,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Restore original FujiFrame logo everywhere
+      - name: Use fresh original-logo asset for iOS/PWA
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
           p = Path('quick.html')
           s = p.read_text()
-          s = s.replace('<link rel="icon" href="./app-icon.svg" type="image/svg+xml" />', '<link rel="icon" href="./logo.svg" type="image/svg+xml" />')
-          s = s.replace('<link rel="apple-touch-icon" href="./app-icon.svg" />', '<link rel="apple-touch-icon" href="./logo.svg" />')
-          s = s.replace('.app-icon{width:58px;height:42px;object-fit:contain;flex:0 0 auto;background:transparent;image-rendering:pixelated;image-rendering:crisp-edges}', '.app-icon{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:0 0 auto}')
-          s = s.replace('.app-icon{width:46px;height:46px;object-fit:cover;flex:0 0 auto;border-radius:11px}', '.app-icon{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:0 0 auto}')
-          s = s.replace('<img class="app-icon" src="./header-camera.svg" alt="" aria-hidden="true" />', '<img class="app-icon" src="./logo.svg" alt="FujiFrame" />')
+          s = s.replace('<link rel="apple-touch-icon" href="./logo.svg" />', '<link rel="apple-touch-icon" href="./home-logo-v2.svg" />')
+          s = s.replace('<link rel="manifest" href="./quick.webmanifest" />', '<link rel="manifest" href="./quick.webmanifest?v=2" />')
           p.write_text(s)
 
           p = Path('quick.webmanifest')
-          p.write_text(p.read_text().replace('./app-icon.svg', './logo.svg'))
+          s = p.read_text()
+          s = s.replace('./logo.svg', './home-logo-v2.svg')
+          p.write_text(s)
 
           p = Path('install.html')
-          s = p.read_text().replace('./app-icon.svg', './logo.svg')
-          s = s.replace('alt="Pixel camera FujiFrame icon"', 'alt="FujiFrame logo"')
-          s = s.replace('now with a tiny pixel camera.', 'with the original FujiFrame mark.')
+          s = p.read_text()
+          s = s.replace('<link rel="apple-touch-icon" href="./logo.svg" />', '<link rel="apple-touch-icon" href="./home-logo-v2.svg" />')
+          s = s.replace('<link rel="manifest" href="./quick.webmanifest" />', '<link rel="manifest" href="./quick.webmanifest?v=2" />')
+          s = s.replace('<img class="icon" src="./logo.svg" alt="FujiFrame logo" />', '<img class="icon" src="./home-logo-v2.svg" alt="FujiFrame logo" />')
           p.write_text(s)
           PY
-      - name: Commit branding restore
+      - name: Commit Home Screen icon refresh
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add quick.html quick.webmanifest install.html
-          git diff --cached --quiet || git commit -m "Use original FujiFrame logo for web and Home Screen"
+          git diff --cached --quiet || git commit -m "Refresh original FujiFrame Home Screen icon"
           git push
