@@ -1,4 +1,4 @@
-name: Fix FujiFrame Quick header logo
+name: Restore original FujiFrame branding
 
 on:
   push:
@@ -13,27 +13,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Restore original FujiFrame logo in header
+      - name: Restore original FujiFrame logo everywhere
         run: |
           python3 - <<'PY'
           from pathlib import Path
+
           p = Path('quick.html')
           s = p.read_text()
-          old_css = '.app-icon{width:58px;height:42px;object-fit:contain;flex:0 0 auto;background:transparent;image-rendering:pixelated;image-rendering:crisp-edges}'
-          new_css = '.app-icon{width:46px;height:46px;object-fit:cover;flex:0 0 auto;border-radius:11px}'
-          if old_css in s:
-              s = s.replace(old_css, new_css, 1)
-          old_img = '<img class="app-icon" src="./header-camera.svg" alt="" aria-hidden="true" />'
-          new_img = '<img class="app-icon" src="./logo.svg" alt="FujiFrame" />'
-          if old_img not in s:
-              raise SystemExit('Expected current header image tag not found')
-          s = s.replace(old_img, new_img, 1)
+          s = s.replace('<link rel="icon" href="./app-icon.svg" type="image/svg+xml" />', '<link rel="icon" href="./logo.svg" type="image/svg+xml" />')
+          s = s.replace('<link rel="apple-touch-icon" href="./app-icon.svg" />', '<link rel="apple-touch-icon" href="./logo.svg" />')
+          s = s.replace('.app-icon{width:58px;height:42px;object-fit:contain;flex:0 0 auto;background:transparent;image-rendering:pixelated;image-rendering:crisp-edges}', '.app-icon{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:0 0 auto}')
+          s = s.replace('.app-icon{width:46px;height:46px;object-fit:cover;flex:0 0 auto;border-radius:11px}', '.app-icon{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:0 0 auto}')
+          s = s.replace('<img class="app-icon" src="./header-camera.svg" alt="" aria-hidden="true" />', '<img class="app-icon" src="./logo.svg" alt="FujiFrame" />')
+          p.write_text(s)
+
+          p = Path('quick.webmanifest')
+          p.write_text(p.read_text().replace('./app-icon.svg', './logo.svg'))
+
+          p = Path('install.html')
+          s = p.read_text().replace('./app-icon.svg', './logo.svg')
+          s = s.replace('alt="Pixel camera FujiFrame icon"', 'alt="FujiFrame logo"')
+          s = s.replace('now with a tiny pixel camera.', 'with the original FujiFrame mark.')
           p.write_text(s)
           PY
-      - name: Commit original logo restoration
+      - name: Commit branding restore
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add quick.html
-          git diff --cached --quiet || git commit -m "Restore original FujiFrame header logo"
+          git add quick.html quick.webmanifest install.html
+          git diff --cached --quiet || git commit -m "Use original FujiFrame logo for web and Home Screen"
           git push
