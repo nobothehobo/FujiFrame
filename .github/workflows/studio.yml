@@ -1,0 +1,23 @@
+name: Studio checks
+
+on:
+  push:
+    paths: ['studio/**', '.github/workflows/studio.yml']
+  pull_request:
+    paths: ['studio/**', '.github/workflows/studio.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: studio/requirements.txt
+      - run: python -m pip install -r studio/requirements.txt
+      - run: python -m unittest discover -s studio/tests -v

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181b1b">
+  <title>FujiFrame Studio — A little closer to your vision</title>
+  <meta name="description" content="A local, nondestructive darkroom for Fujifilm photographs.">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M5 3v18M12 3v18M19 3v18"/><path class="fill-icon" d="M2 7h6v4H2zM9 14h6v4H9zM16 6h6v4h-6z"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 5v5h5M3.5 10a9 9 0 1 1 1 8M12 7v5l3 2"/></symbol>
+    <symbol id="i-import" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 16V3M8 7l4-4 4 4M4 16v5h16v-5"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v14H3z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><path d="M12 2v20M9 5H3v14h6M15 5h6v14h-6"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 4 3 9l5 5M3 9h11a6 6 0 0 1 0 12h-3"/></symbol>
+    <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 3v15h15M3 6h15v15M3 21 21 3"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/><circle cx="12" cy="12" r="4"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-11v1"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 5 7 7-7 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </defs></svg>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="FujiFrame Studio home"><span class="brand-mark"><i></i></span><span>FujiFrame <b>STUDIO</b></span></a>
+    <div class="project-label"><span class="status-dot"></span><span id="project-name">Your local darkroom</span><span class="local-label">LOCAL</span></div>
+    <div class="top-actions"><button id="integration-button" class="button quiet"><svg><use href="#i-camera"/></svg><span>Camera workflow</span></button><button id="import-button" class="button"><svg><use href="#i-import"/></svg>Import</button><button id="export-button" class="button primary" disabled><svg><use href="#i-export"/></svg>Export <span class="key">↗</span></button></div>
+  </header>
+
+  <div class="workspace">
+    <nav class="tool-rail" aria-label="Workspace tools">
+      <button class="rail-button active" data-panel="library" title="Photo library" aria-label="Photo library"><svg><use href="#i-grid"/></svg><span>Library</span></button>
+      <button class="rail-button" data-panel="looks" title="Creative looks" aria-label="Creative looks"><svg><use href="#i-spark"/></svg><span>Looks</span></button>
+      <button class="rail-button" data-panel="history" title="Edit history" aria-label="Edit history"><svg><use href="#i-history"/></svg><span>History</span></button>
+      <div class="rail-spacer"></div>
+      <button class="rail-button" id="info-button" title="Photo information" aria-label="Photo information"><svg><use href="#i-info"/></svg><span>Info</span></button>
+      <span class="version-label">v0.1</span>
+    </nav>
+
+    <aside class="left-panel">
+      <section id="panel-library" class="side-panel">
+        <div class="panel-heading"><div><span class="eyebrow">YOUR DARKROOM</span><h2>All photographs <span id="photo-count">0</span></h2></div><button class="icon-button" id="sidebar-import" title="Import photos" aria-label="Import photos">+</button></div>
+        <label class="search-box"><svg><use href="#i-grid"/></svg><input id="photo-search" type="search" placeholder="Find a photograph…" aria-label="Search photographs"></label>
+        <div class="library-filters"><button data-filter="all" class="filter active">All</button><button data-filter="pick" class="filter">Picked</button><button data-filter="rated" class="filter">★ Rated</button><select id="photo-sort" aria-label="Sort photographs"><option value="newest">Newest</option><option value="name">Name</option></select></div>
+        <div id="library-grid" class="library-grid"></div>
+        <div id="library-empty" class="library-empty"><svg><use href="#i-camera"/></svg><p>Good photographs<br>start with a little looking.</p><span>Import a photo to get started.</span></div>
+        <div class="local-note"><span class="status-dot"></span>On your computer. In your control.</div>
+      </section>
+      <section id="panel-looks" class="side-panel" hidden><div class="panel-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2>Creative looks</h2></div></div><p class="panel-copy">Original Studio looks. Your camera’s film simulation stays in the source rendering.</p><div id="looks-list" class="looks-list"></div><div class="lut-area"><h3>Your color, your way</h3><p>Import a .cube LUT you own. Applied in sRGB after the tone curve.</p><button id="import-lut" class="button">Import 3D LUT</button><select id="lut-select" aria-label="Custom LUT"><option value="">No custom LUT</option></select><div id="lut-amount-slot"></div></div></section>
+      <section id="panel-history" class="side-panel" hidden><div class="panel-heading"><div><span class="eyebrow">ROOM TO EXPERIMENT</span><h2>Edit history</h2></div></div><p class="panel-copy">Every saved adjustment is a new revision. Select a revision to restore it.</p><div id="history-list" class="history-list"></div><button id="save-sidecar" class="button">Download edit sidecar</button></section>
+    </aside>
+
+    <main class="main-workspace">
+      <div class="image-topbar"><div class="image-title"><span id="file-name">A little closer to your vision.</span><span id="file-format" class="file-format">STUDIO</span></div><div id="save-state" class="save-state"><span class="status-dot"></span>Ready when you are</div></div>
+      <div id="stage" class="stage">
+        <div id="welcome" class="welcome"><div class="welcome-frame"><span class="welcome-sun"></span><span class="welcome-mountain one"></span><span class="welcome-mountain two"></span></div><span class="eyebrow">LESS BETWEEN YOU AND THE PHOTOGRAPH</span><h1>Find your kind<br>of <em>light.</em></h1><p>A thoughtful darkroom for your Fujifilm photographs.<br>Keep the color you love. Make the rest your own.</p><button id="welcome-import" class="button primary large"><svg><use href="#i-import"/></svg>Open your photographs</button><button id="demo-button" class="text-button">Explore a synthetic test scene <span>→</span></button><div class="welcome-formats">RAF <i>·</i> JPEG <i>·</i> TIFF <i>·</i> PNG <i>·</i> WebP</div></div>
+        <div id="image-frame" class="image-frame" hidden><img id="edited-image" alt="Edited photograph" draggable="false"><img id="before-image" class="before-image" alt="Original source rendering" draggable="false" hidden><div id="compare-divider" class="compare-divider" hidden><span>↔</span></div><div id="crop-overlay" class="crop-overlay" hidden><div id="crop-box" class="crop-box"></div><span>Drag to select your crop</span></div><div id="mask-overlay" class="mask-overlay" hidden><div id="mask-guide" class="mask-guide"></div><span>Click to position your mask</span></div><span class="before-label" id="before-label" hidden>BEFORE</span><span class="after-label" id="after-label" hidden>AFTER</span></div>
+        <div id="image-error" class="welcome" hidden><span class="eyebrow">THIS FILE NEEDS ANOTHER LOOK</span><h2>Preview unavailable</h2><p id="image-error-message"></p></div>
+        <div id="render-status" class="render-status" hidden><span class="spinner"></span><span>Developing your photograph…</span></div>
+        <div id="drop-overlay" class="drop-overlay" hidden><svg><use href="#i-import"/></svg><h2>Make room for a new perspective.</h2><p>Drop your photographs here</p></div>
+      </div>
+      <div id="crop-toolbar" class="crop-toolbar" hidden><span>Crop photograph</span><select id="crop-aspect" aria-label="Crop aspect"><option value="free">Freeform</option><option value="1">Square · 1:1</option><option value="1.5">Landscape · 3:2</option><option value="0.8">Portrait · 4:5</option><option value="1.7777778">Wide · 16:9</option></select><button id="crop-reset" class="button small">Reset crop</button><button id="crop-cancel" class="button small">Cancel</button><button id="crop-apply" class="button primary small">Apply crop</button></div>
+      <div id="compare-toolbar" class="compare-toolbar" hidden><span>Before</span><input id="compare-slider" aria-label="Before and after comparison" type="range" min="0" max="100" value="50"><span>After</span></div>
+      <div class="canvas-toolbar"><div class="toolbar-left"><button id="undo-button" class="icon-button" title="Undo (Ctrl/⌘ Z)" aria-label="Undo" disabled><svg><use href="#i-undo"/></svg></button><button id="redo-button" class="icon-button redo" title="Redo (Ctrl/⌘ Shift Z)" aria-label="Redo" disabled><svg><use href="#i-undo"/></svg></button><span class="toolbar-divider"></span><button id="crop-button" class="icon-button" title="Crop photograph" aria-label="Crop photograph" disabled><svg><use href="#i-crop"/></svg></button><button id="rotate-button" class="icon-button" title="Rotate 90° clockwise" aria-label="Rotate clockwise" disabled>↻</button><button id="mask-button" class="icon-button" title="Local masks" aria-label="Local masks" disabled><svg><use href="#i-mask"/></svg></button></div><div class="zoom-controls"><button id="zoom-fit" class="active">Fit</button><button id="zoom-100">100%</button><span id="pixel-size">—</span></div><button id="compare-button" class="button quiet small" disabled><svg><use href="#i-compare"/></svg>Compare <span class="key">\</span></button></div>
+      <div class="filmstrip-bar"><span id="source-status">Nondestructive by nature.</span><div id="rating-controls" class="rating-controls" hidden><button id="pick-button" title="Pick (P)" aria-label="Pick photo">⚑</button><span id="stars"></span><button id="reject-button" title="Reject (X)" aria-label="Reject photo">×</button></div><span class="working-space">sRGB <span>·</span> Float32 processing</span></div>
+      <div id="filmstrip" class="filmstrip"></div>
+    </main>
+
+    <aside class="adjustments">
+      <div class="edit-heading"><div><span class="eyebrow">THE FINISHING TOUCHES</span><h2>Develop</h2></div><button id="reset-button" class="text-button" disabled>Reset</button></div>
+      <div class="histogram-area"><canvas id="histogram" width="560" height="170" aria-label="RGB histogram"></canvas><div class="histogram-labels"><span>Shadows <b id="shadow-percent">—</b></span><span>Highlights <b id="highlight-percent">—</b></span></div></div>
+      <div class="source-control"><label for="development-mode">Color foundation</label><select id="development-mode" disabled><option value="camera">Source rendering</option><option value="raw">Neutral RAW · LibRaw</option></select><p id="color-notice">The photograph’s source color is your starting point.</p><button id="attach-rendering" class="text-button" hidden>+ Attach X RAW Studio rendering</button></div>
+      <div id="adjustment-groups"></div>
+      <section id="masks-section" class="masks-section"><div class="section-title"><h3>Local masks</h3><span class="section-badge">SELECTIVE</span></div><p>Shape the light in just one part of the image.</p><div class="mask-buttons"><button id="add-radial" class="button small">+ Radial</button><button id="add-linear" class="button small">+ Linear</button></div><select id="mask-select" aria-label="Active mask"><option value="">No mask selected</option></select><div id="mask-settings" hidden></div></section>
+      <div class="adjustment-footer">Originals stay original.<br><span>Every adjustment is saved separately.</span></div>
+    </aside>
+  </div>
+
+  <input id="file-input" type="file" multiple accept=".raf,.jpg,.jpeg,.png,.tif,.tiff,.webp" hidden>
+  <input id="rendering-input" type="file" accept=".jpg,.jpeg,.tif,.tiff,.png" hidden>
+  <input id="lut-input" type="file" accept=".cube" hidden>
+  <dialog id="integration-dialog" class="modal wide"><form method="dialog"><button class="modal-close icon-button" aria-label="Close"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">FROM CAMERA TO CREATIVE</span><h2>Your Fujifilm workflow.</h2><p class="modal-intro">Two ways to keep your X-T5 photographs moving.</p><div class="integration-cards"><section><span class="number-label">01 / EXACT CAMERA COLOR</span><h3>X RAW Studio round-trip</h3><p>Connect your X-T5 by USB. In the camera’s Network/USB settings, choose <b>USB RAW CONV./BACKUP RESTORE</b> and set USB power/communication to <b>AUTO</b> or <b>POWER SUPPLY OFF/COMM ON</b>.</p><p>Open the RAF in Fujifilm’s X RAW Studio, choose your film simulation, export in sRGB, then attach that JPEG or TIFF to its RAF here. Studio edits that rendered color.</p><button id="launch-xraw" class="button">Open X RAW Studio</button><span id="xraw-status" class="inline-status"></span><a href="https://www.fujifilm-x.com/global/support/download/software/x-raw-studio/" target="_blank" rel="noreferrer">Get X RAW Studio ↗</a></section><section><span class="number-label">02 / AUTOMATIC TRANSFER</span><h3>A folder that keeps up.</h3><p>Use Fujifilm X Acquire or Tether App to transfer photographs to a folder on this computer. Studio watches that folder and imports completed files. You can also watch an X RAW Studio export folder.</p><label for="watch-path">Transfer folder (absolute path)</label><input id="watch-path" placeholder="C:\Photos\Incoming or /Users/you/Photos/Incoming"><div class="button-row"><button id="watch-save" class="button primary">Watch folder</button><button id="watch-stop" class="button">Stop watching</button></div><span id="watch-status" class="inline-status"></span></section></div><div class="integration-footnote"><b>Direct USB / Wi-Fi camera control is not implemented.</b> Fujifilm’s SDK supports X-T5 transfer and basic controls, but excludes RAF conversion and carries specific licensing and warranty terms. No SDK binaries or Adobe profiles are bundled. <a href="https://www.fujifilm-x.com/global/camera-control-sdk/" target="_blank" rel="noreferrer">SDK details ↗</a></div></dialog>
+
+  <dialog id="export-dialog" class="modal"><form method="dialog"><button class="modal-close icon-button" aria-label="Close"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">READY FOR THE WORLD</span><h2>Let it out.</h2><p class="modal-intro">A new copy. Exactly how you see it.</p><label for="export-format">File format</label><select id="export-format"><option value="jpeg">JPEG · high quality, 8-bit</option><option value="tiff16">TIFF · 16-bit RGB, uncompressed</option><option value="png">PNG · lossless, 8-bit</option></select><label for="export-size">Longest edge</label><select id="export-size"><option value="0">Full source resolution</option><option value="3000">3000 px</option><option value="2048">2048 px</option><option value="1080">1080 px · social</option></select><label id="jpeg-quality-label" for="export-quality">JPEG quality <span id="quality-value">95</span></label><input id="export-quality" type="range" min="60" max="100" value="95"><label id="preview-export-label" class="checkbox-label" hidden><input id="allow-preview" type="checkbox">I understand this RAF is using its lower-resolution embedded preview.</label><p class="export-note">Exports are sRGB. Source EXIF and location metadata are excluded. Your original and its recipe metadata remain in the local catalog. Exporting 40MP photos can take time and several GB of memory.</p><button id="export-confirm" class="button primary large">Export photograph <svg><use href="#i-export"/></svg></button><span id="export-state" class="inline-status" role="status"></span></dialog>
+
+  <dialog id="info-dialog" class="modal"><form method="dialog"><button class="modal-close icon-button" aria-label="Close"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">BEHIND THE PHOTOGRAPH</span><h2>Photo details</h2><div id="photo-metadata"></div><p class="export-note">This is an independent project, unaffiliated with Fujifilm or Adobe. Studio creative looks are original effects, not official Fujifilm film simulations.</p></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="fatal-error" class="fatal-error" hidden><h2>Studio couldn’t start</h2><p id="fatal-message"></p><button id="reload-button" class="button primary">Try again</button></div>
+</body>
+</html>
