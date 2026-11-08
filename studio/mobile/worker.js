@@ -1,0 +1,2 @@
+import {processPixels,histogram} from './engine.js';
+self.onmessage=({data})=>{const{id,pixels,width,height,edits,options,includeHistogram}=data;try{const output=processPixels(new Uint8ClampedArray(pixels),width,height,edits,options);self.postMessage({id,pixels:output.buffer,histogram:includeHistogram?histogram(output):null},[output.buffer]);}catch(error){self.postMessage({id,error:error.message});}};

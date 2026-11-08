@@ -1,3 +1,9 @@
 node_modules/
 test-output/
 .DS_Store
+__pycache__/
+*.pyc
+.venv-studio/
+.studio-preview/
+studio-build/
+*.spec

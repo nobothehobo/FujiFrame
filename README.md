@@ -1,5 +1,15 @@
 # FujiFrame
 
+**iPhone editor:** [Open FujiFrame Studio](https://fujiframe-studio-mobile.nobothehobo.chatgpt.site)
+in Safari, then Share → Add to Home Screen. Photo processing stays on your phone.
+This is separate from FujiFrame Quick.
+
+**New: [FujiFrame Studio](studio/README.md)** is a separate local desktop editor
+for RAF development, nondestructive adjustments, masks, curves, 16-bit TIFF
+export, and an X RAW Studio file round-trip. Start with `Launch-Studio.bat`
+(Windows) or `bash Launch-Studio.command` (macOS/Linux). It is an early editor;
+the [Studio guide](studio/README.md) explains film-simulation and hardware limits.
+
 A quiet, local-only web app for adding photo mats to Fujifilm JPEGs and other photographs. No account, uploads, API keys, runtime dependencies or build step.
 
 ## Run
