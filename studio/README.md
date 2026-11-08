@@ -1,5 +1,9 @@
 # FujiFrame Studio
 
+**On iPhone:** open [Studio Mobile](https://fujiframe-studio-mobile.nobothehobo.chatgpt.site)
+in Safari. It edits rendered photographs directly on your phone. See the
+[mobile guide](mobile/README.md) for supported features and RAF preview limits.
+
 A local desktop photo editor with a browser interface, designed around Fujifilm
 X-T5 files. This is an early working editor, not a complete Lightroom replacement.
 It runs a Python service on your computer; the interface opens in your browser.

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1b211c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Studio">
+  <meta name="description" content="Your light. Your color. A private, pocket-sized darkroom for Fujifilm photographs.">
+  <title>FujiFrame Studio</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <svg class="defs" aria-hidden="true"><defs>
+    <symbol id="i-import" viewBox="0 0 24 24"><path d="M12 3v13m-4-4 4 4 4-4M4 16v5h16v-5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 16V3M8 7l4-4 4 4M4 16v5h16v-5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-color" viewBox="0 0 24 24"><circle cx="9" cy="9" r="6"/><circle cx="15" cy="9" r="6"/><circle cx="12" cy="15" r="6"/></symbol>
+    <symbol id="i-curve" viewBox="0 0 24 24"><path d="M3 3v18h18M5 18c9 0 3-12 14-12"/><circle cx="12" cy="12" r="1.5"/></symbol>
+    <symbol id="i-look" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/><circle cx="12" cy="12" r="4"/></symbol>
+    <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 3v15h15M3 6h15v15"/></symbol>
+    <symbol id="i-finish" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="m4 4 2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 4 3 9l5 5M3 9h11a6 6 0 0 1 0 12h-3"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><path d="M12 2v20M9 5H3v14h6M15 5h6v14h-6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-11v1"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  </defs></svg>
+  <div class="app">
+    <header class="header"><button id="library-button" class="icon-button" aria-label="Open photograph library" title="Your photographs"><svg><use href="#i-grid"/></svg></button><a class="brand" href="./"><span class="brand-mark"></span><span>FujiFrame <b>STUDIO</b></span></a><div class="header-actions"><button id="import-button" class="icon-button" aria-label="Import photographs"><svg><use href="#i-plus"/></svg></button><button id="export-button" class="export-button" disabled><svg><use href="#i-export"/></svg><span>Export</span></button></div></header>
+    <main class="darkroom">
+      <div class="photo-heading"><span id="photo-name">Your pocket darkroom.</span><button id="info-button" class="micro-button" aria-label="About Studio"><span id="source-badge" class="source-badge">ON YOUR DEVICE</span><svg><use href="#i-info"/></svg></button></div>
+      <div id="stage" class="stage">
+        <section id="welcome" class="welcome"><div class="art-frame"><div class="art-sun"></div><div class="art-mountain back"></div><div class="art-mountain front"></div><div class="art-hill"></div></div><span class="eyebrow">A LITTLE CLOSER TO YOUR VISION</span><h1>Your light.<br>Your <em>color.</em></h1><p>Keep the Fujifilm color you love.<br>Make the rest your own.</p><button id="welcome-import" class="button primary"><svg><use href="#i-import"/></svg>Open a photograph</button><button id="demo-button" class="text-button">Try the test landscape <span>↗</span></button><span class="welcome-note">Private by nature. Photos stay on this device.</span></section>
+        <div id="photo-frame" class="photo-frame" hidden><canvas id="before-canvas" aria-label="Original source photograph"></canvas><canvas id="photo-canvas" aria-label="Edited photograph"></canvas><div id="split-line" class="split-line" hidden><span>↔</span></div><div id="mask-guide" class="mask-guide" hidden></div><div id="crop-box" class="crop-box" hidden></div><span id="before-label" class="canvas-label" hidden>BEFORE</span></div>
+        <div id="busy" class="busy" hidden><span class="spinner"></span><span id="busy-text">Finding the light…</span></div><div id="drop-zone" class="drop-zone" hidden>Drop photographs to import</div>
+      </div>
+      <div id="compare-strip" class="compare-strip" hidden><span>Before</span><input id="split-slider" type="range" min="0" max="100" value="50" aria-label="Before and after split"><span>After</span></div>
+      <div id="crop-strip" class="crop-strip" hidden><span>Drag on the photograph to crop.</span><button id="cancel-crop" class="text-button">Cancel</button><button id="apply-crop" class="button small primary">Apply</button></div>
+      <div class="image-toolbar"><div class="toolbar-group"><button id="undo-button" class="icon-button" aria-label="Undo" disabled><svg><use href="#i-undo"/></svg></button><button id="redo-button" class="icon-button redo" aria-label="Redo" disabled><svg><use href="#i-undo"/></svg></button><button id="history-button" class="icon-button" aria-label="Saved edit history" disabled><svg><use href="#i-clock"/></svg></button></div><button id="zoom-button" class="zoom-button" disabled>Fit <span id="preview-dimensions"></span></button><button id="compare-button" class="compare-button" disabled><svg><use href="#i-compare"/></svg><span>Compare</span></button></div>
+    </main>
+    <aside class="editor"><div class="editor-heading"><div><span id="section-eyebrow" class="eyebrow">SHAPE THE LIGHT</span><h2 id="section-title">Light</h2></div><span id="save-state" class="save-state"><i></i>Private on this device</span><button id="reset-button" class="text-button" disabled>Reset</button></div><div id="controls" class="controls"></div></aside>
+    <nav id="tool-nav" class="tool-nav" aria-label="Editing tools"></nav>
+  </div>
+  <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.raf" multiple hidden>
+  <input id="lut-input" type="file" accept=".cube" hidden>
+  <input id="sidecar-input" type="file" accept=".json" hidden>
+
+  <dialog id="library-dialog" class="sheet"><div class="sheet-heading"><div><span class="eyebrow">ROOM FOR YOUR PHOTOGRAPHS</span><h2>Your library <small id="photo-count">0</small></h2></div><button class="icon-button" data-close aria-label="Close library"><svg><use href="#i-close"/></svg></button></div><p class="sheet-copy">Stored in this browser on this device. Download finished photos and edit files to keep a backup.</p><button id="library-import" class="button primary wide"><svg><use href="#i-plus"/></svg>Add photographs</button><div id="library-grid" class="library-grid"></div><p id="library-empty" class="sheet-copy">A fresh start. Add your first photograph.</p><div class="sheet-footer"><span class="dot"></span>No photo uploads. No account for your photos.</div></dialog>
+
+  <dialog id="export-dialog" class="sheet"><div class="sheet-heading"><div><span class="eyebrow">READY FOR THE WORLD</span><h2>Let it out.</h2></div><button class="icon-button" data-close aria-label="Close export"><svg><use href="#i-close"/></svg></button></div><p class="sheet-copy">An edited copy. Your original stays original.</p><label for="export-format">File format</label><select id="export-format"><option value="png">PNG · lossless, 8-bit</option><option value="jpeg">JPEG · smaller, 8-bit</option></select><label for="export-size">Longest edge</label><select id="export-size"><option value="0">Full source resolution</option><option value="4096">4096 px</option><option value="2048">2048 px</option><option value="1080">1080 px · social</option></select><p id="export-dimensions" class="export-dimensions"></p><p id="export-preview-warning" class="notice amber" hidden>This RAF supplies an embedded JPEG preview. Export is limited to that preview’s resolution and color depth.</p><label id="preview-ack-label" class="check-label" hidden><input id="preview-ack" type="checkbox">Export the embedded preview.</label><p class="small-copy">PNG avoids another lossy save. Full-resolution exports can take time on a phone. Keep Studio open while preparing. Exports use sRGB and exclude source EXIF and location metadata.</p><button id="prepare-export" class="button primary wide"><svg><use href="#i-export"/></svg>Prepare photograph</button><div id="export-progress" class="export-progress" hidden><progress id="progress-bar" max="1" value="0"></progress><span id="progress-text">Preparing…</span><button id="cancel-export" class="text-button">Cancel</button></div><div id="export-ready" class="export-ready" hidden><div class="ready-badge">✓ Your photograph is ready.</div><button id="share-photo" class="button primary wide">Share / Save Image</button><div class="export-fallbacks"><button id="download-photo" class="text-button">Download file</button><a id="open-photo" class="text-button" target="_blank" rel="noopener">Open image ↗</a></div><p class="small-copy">On iPhone, choose <b>Save Image</b> in the share sheet. If sharing is unavailable, open the image and touch and hold it to save.</p></div><div class="edit-file-actions"><button id="download-edits" class="text-button">Download edit file</button><button id="import-edits" class="text-button">Restore edit file</button></div></dialog>
+
+  <dialog id="info-dialog" class="sheet"><div class="sheet-heading"><div><span class="eyebrow">YOUR LIGHT. YOUR COLOR.</span><h2>Studio, in your pocket.</h2></div><button class="icon-button" data-close aria-label="Close information"><svg><use href="#i-close"/></svg></button></div><div class="info-stack"><section><h3>Fujifilm color, intact at the start.</h3><p>Import a camera JPEG to begin with its rendered film simulation. Studio adds your adjustments to that image. Creative looks are original Studio effects.</p></section><section><h3>What a RAF means here</h3><p>The phone app reads the RAF’s embedded JPEG preview. Full RAW development, high-bit TIFF editing, and direct camera control need the desktop workflow. For full-quality Fujifilm color on your phone, transfer a full-resolution camera JPEG or an X RAW Studio JPEG export.</p></section><section><h3>Make it feel like an app.</h3><p>Open this link in Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>. Your photo library belongs to this browser and device. Browser storage can be cleared; download your work to keep it.</p></section><section><h3>Small gestures, useful shortcuts.</h3><p>Pinch to zoom; drag to move when zoomed in. Tap Fit to reset. Compare splits the original and edit. A selected mask can be positioned by tapping the photograph.</p></section><div id="photo-info" class="photo-info"></div><p class="small-copy">No photographs are uploaded. Processing is in-browser, in 8-bit sRGB output. Independent project, unaffiliated with Fujifilm or Adobe.</p><a class="text-button" href="https://github.com/nobothehobo/FujiFrame/pull/2" target="_blank" rel="noreferrer">Desktop Studio & source ↗</a></div></dialog>
+
+  <dialog id="history-dialog" class="sheet"><div class="sheet-heading"><div><span class="eyebrow">ROOM TO EXPERIMENT</span><h2>Edit history</h2></div><button class="icon-button" data-close aria-label="Close history"><svg><use href="#i-close"/></svg></button></div><p class="sheet-copy">Recent saved states for this photograph. Tap one to restore it.</p><div id="history-list" class="history-list"></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

@@ -21,3 +21,8 @@ jobs:
           cache-dependency-path: studio/requirements.txt
       - run: python -m pip install -r studio/requirements.txt
       - run: python -m unittest discover -s studio/tests -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test studio/mobile/tests/*.test.js
+      - run: node --check studio/mobile/app.js

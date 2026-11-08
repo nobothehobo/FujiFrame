@@ -1,5 +1,9 @@
 # FujiFrame
 
+**iPhone editor:** [Open FujiFrame Studio](https://fujiframe-studio-mobile.nobothehobo.chatgpt.site)
+in Safari, then Share → Add to Home Screen. Photo processing stays on your phone.
+This is separate from FujiFrame Quick.
+
 **New: [FujiFrame Studio](studio/README.md)** is a separate local desktop editor
 for RAF development, nondestructive adjustments, masks, curves, 16-bit TIFF
 export, and an X RAW Studio file round-trip. Start with `Launch-Studio.bat`
